@@ -14,86 +14,92 @@
 
   body, html {
     margin: 0; padding: 0; width: 100%; height: 100%;
-    overflow: hidden; background: #ffdef2; /* Светло-розовый базовый */
+    overflow: hidden; background: #ffdef2;
     font-family: 'Pacifico', cursive;
+    /* Убираем лишние задержки при клике на мобилках */
+    touch-action: manipulation; 
   }
 
-  /* КИСЛОТНЫЙ ГИПНО-ФОН */
+  /* ОПТИМИЗИРОВАННЫЙ ГИПНО-ФОН */
   .chaos-bg {
-    position: fixed; width: 200%; height: 200%; top: -50%; left: -50%;
+    position: fixed; width: 150vmax; height: 150vmax; top: -25vmax; left: -25vmax;
     background: conic-gradient(from 0deg, #ff0080, #00ffff, #ffff00, #ff0080);
-    animation: rotateChaos 8s linear infinite;
+    animation: rotateChaos 10s linear infinite;
     z-index: -5; opacity: 0.4;
+    will-change: transform;
   }
   @keyframes rotateChaos { to { transform: rotate(360deg); } }
 
-  /* ПОСТОЯННО ЛЕТАЮЩИЙ МУСОР (SVG/ЭМОДЗИ) */
   .ambient-item {
     position: fixed; pointer-events: none; z-index: 1;
     animation: floatAround 4s infinite linear;
+    will-change: transform;
   }
   @keyframes floatAround {
     0% { transform: translate(0,0) rotate(0deg) scale(1); }
-    50% { transform: translate(100px, -100px) rotate(180deg) scale(1.5); }
-    100% { transform: translate(-50px, 50px) rotate(360deg) scale(1); }
+    50% { transform: translate(50px, -50px) rotate(180deg) scale(1.3); }
+    100% { transform: translate(-20px, 20px) rotate(360deg) scale(1); }
   }
 
-  /* РАДУГА */
   .rainbow-wrap {
-    position: fixed; top: 0; width: 100%; height: 300px; z-index: 2;
-    filter: drop-shadow(0 0 20px #fff);
-    animation: rainbowShake 0.5s infinite;
+    position: fixed; top: 0; width: 100%; height: 25vh; z-index: 2;
+    filter: drop-shadow(0 0 15px #fff);
+    animation: rainbowShake 0.6s infinite ease-in-out;
   }
-  @keyframes rainbowShake { 0% { transform: skewX(2deg); } 100% { transform: skewX(-2deg); } }
+  @keyframes rainbowShake { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.1); } }
 
   .container {
     position: absolute; width: 100%; height: 100%;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
-    z-index: 100;
+    z-index: 100; padding: 20px; box-sizing: border-box;
   }
 
   .message {
-    font-size: 50px; color: white; text-align: center;
-    text-shadow: 5px 5px 0px var(--pink), -5px -5px 0px var(--cyan), 0 0 30px white;
-    animation: glitch 0.2s infinite;
-    margin-bottom: 20px;
+    font-size: clamp(24px, 7vw, 42px); /* Адаптивный размер шрифта */
+    color: white; text-align: center;
+    text-shadow: 3px 3px 0px var(--pink), -2px -2px 0px var(--cyan), 0 0 15px white;
+    animation: glitch 0.3s infinite;
+    margin-bottom: 30px;
+    line-height: 1.2;
   }
   @keyframes glitch {
-    0% { transform: translate(2px, 2px); }
-    50% { transform: translate(-2px, -2px); }
-    100% { transform: translate(0); }
+    0% { transform: skew(0deg); }
+    50% { transform: skew(2deg) translate(2px, 1px); }
+    100% { transform: skew(-1deg); }
   }
 
-  /* КНОПКА-ЖЕЛЕ (ФИЗИЧЕСКАЯ) */
-  .jelly-anchor { perspective: 1000px; }
+  .jelly-anchor { perspective: 1000px; width: 80%; display: flex; justify-content: center; }
   .jelly-btn {
-    padding: 40px 80px; font-size: 40px; cursor: pointer;
+    width: 100%; max-width: 300px;
+    padding: 25px 10px; font-size: 28px; cursor: pointer;
     background: linear-gradient(45deg, var(--pink), var(--yellow));
-    border: 10px solid white; border-radius: 60px;
-    color: white; box-shadow: 0 20px 0px #b000b0, 0 30px 50px rgba(255,0,255,0.5);
-    transition: transform 0.1s;
-    animation: bounce 0.6s infinite alternate;
+    border: 6px solid white; border-radius: 40px;
+    color: white; box-shadow: 0 12px 0px #b000b0, 0 20px 30px rgba(255,0,255,0.4);
+    font-family: 'Pacifico', cursive;
+    animation: bounce 0.8s infinite alternate ease-in-out;
+    will-change: transform;
   }
-  @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-20px); } }
+  @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-15px); } }
 
-  /* СТЕНА СЕРДЕЦ */
   .heart-block {
-    position: absolute; bottom: -300px; z-index: 150;
+    position: absolute; bottom: -350px; z-index: 150;
     pointer-events: none; will-change: transform;
   }
 
   video {
     display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    object-fit: cover; z-index: 10; border: 15px solid white;
+    object-fit: cover; z-index: 10; border: 10px solid white;
   }
 
-  /* ТАЙМЕР */
   #timerDisplay {
     display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    font-size: 100px; color: white; z-index: 200;
-    background: rgba(255, 0, 255, 0.9); padding: 40px 80px; border-radius: 100px;
-    border: 10px solid white; box-shadow: 0 0 100px var(--cyan);
+    font-size: clamp(40px, 15vw, 80px); 
+    color: white; z-index: 200;
+    background: rgba(255, 0, 255, 0.9); padding: 20px 40px; border-radius: 50px;
+    border: 6px solid white; box-shadow: 0 0 50px var(--cyan);
     font-family: 'Varela Round', sans-serif;
+    text-align: center;
+    width: 80%;
   }
 </style>
 </head>
@@ -102,10 +108,10 @@
 <div class="chaos-bg"></div>
 
 <div class="rainbow-wrap">
-  <svg viewBox="0 0 500 150">
-    <path d="M0,150 Q250,-50 500,150" fill="none" stroke="#ff00ff" stroke-width="20" />
-    <path d="M0,160 Q250,-30 500,160" fill="none" stroke="#ffff00" stroke-width="20" />
-    <path d="M0,170 Q250,-10 500,170" fill="none" stroke="#00ffff" stroke-width="20" />
+  <svg viewBox="0 0 500 150" preserveAspectRatio="none" style="width: 100%; height: 100%;">
+    <path d="M0,150 Q250,-50 500,150" fill="none" stroke="#ff00ff" stroke-width="25" />
+    <path d="M0,160 Q250,-30 500,160" fill="none" stroke="#ffff00" stroke-width="25" />
+    <path d="M0,170 Q250,-10 500,170" fill="none" stroke="#00ffff" stroke-width="25" />
   </svg>
 </div>
 
@@ -116,7 +122,7 @@
   </div>
 </div>
 
-<video id="bunnyVideo" src="grok-video-ee4819c8-a2cf-4d70-9184-f8615639bab7.mp4"></video>
+<video id="bunnyVideo" src="grok-video-ee4819c8-a2cf-4d70-9184-f8615639bab7.mp4" playsinline></video>
 <div id="timerDisplay">01:00:00</div>
 
 <script>
@@ -124,27 +130,30 @@ const video = document.getElementById('bunnyVideo');
 const timerDisplay = document.getElementById('timerDisplay');
 const mainUI = document.getElementById('mainUI');
 
-// 1. Создаем фоновый треш (летающие штучки)
+// 1. Оптимизированный фоновый треш
 const icons = ['🍭', '💖', '✨', '🎀', '🌸', '🍩', '🌟', '🧁'];
 function createAmbient() {
+  if (document.querySelectorAll('.ambient-item').length > 15) return; // Лимит элементов
   const el = document.createElement('div');
   el.className = 'ambient-item';
   el.innerText = icons[Math.floor(Math.random()*icons.length)];
-  el.style.left = Math.random() * 100 + 'vw';
-  el.style.top = Math.random() * 100 + 'vh';
-  el.style.fontSize = (20 + Math.random()*60) + 'px';
-  el.style.animationDuration = (2 + Math.random()*3) + 's';
+  el.style.left = Math.random() * 90 + 'vw';
+  el.style.top = Math.random() * 90 + 'vh';
+  el.style.fontSize = (25 + Math.random()*35) + 'px';
   document.body.appendChild(el);
   setTimeout(() => el.remove(), 4000);
 }
-setInterval(createAmbient, 150);
+setInterval(createAmbient, 250);
 
 // 2. Управление желе-кнопкой (акселерометр)
+if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+    // Для iOS нужно разрешение, но мы просто добавим обработчик для Android/старых iOS
+}
 window.addEventListener('deviceorientation', (e) => {
   const btn = document.querySelector('.jelly-btn');
-  if(btn) {
-    const x = Math.min(Math.max(e.gamma, -20), 20);
-    const y = Math.min(Math.max(e.beta - 45, -20), 20);
+  if(btn && e.beta) {
+    const x = Math.min(Math.max(e.gamma, -15), 15);
+    const y = Math.min(Math.max(e.beta - 45, -15), 15);
     btn.style.transform = `rotateX(${-y}deg) rotateY(${x}deg)`;
   }
 });
@@ -152,30 +161,38 @@ window.addEventListener('deviceorientation', (e) => {
 function goCrazy() {
   mainUI.style.display = 'none';
   
-  // Видео через 1.8 сек
   setTimeout(() => {
     video.style.display = 'block';
-    video.play();
+    video.play().catch(e => {
+        // На случай блокировки автоплея
+        video.muted = false;
+        video.play();
+    });
   }, 1800);
 
-  // СТЕНА СЕРДЕЦ БЕЗ ПРОБЕЛОВ
-  const heartCount = 5000;
+  // СТЕНА СЕРДЕЦ (Оптимизированный цикл)
+  const heartCount = 3500; // Немного уменьшено для скорости, но за счет размера перекрывает всё
   const spawnTime = 2000;
+  const hSvg = '<svg viewBox="0 0 24 24" width="100%" height="100%"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+
   for (let i = 0; i < heartCount; i++) {
     setTimeout(() => {
       const h = document.createElement('div');
       h.className = 'heart-block';
-      const size = 150 + Math.random() * 250;
-      h.innerHTML = `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><path fill="hsl(${Math.random()*360}, 100%, 75%)" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
-      h.style.left = (Math.random() * 140 - 20) + 'vw';
+      const size = 180 + Math.random() * 150;
+      h.style.width = size + 'px';
+      h.style.height = size + 'px';
+      h.innerHTML = hSvg;
+      h.querySelector('path').setAttribute('fill', `hsl(${Math.random()*360}, 100%, 75%)`);
+      h.style.left = (Math.random() * 120 - 20) + 'vw';
       document.body.appendChild(h);
 
-      const speed = 2 + Math.random() * 2;
+      const speed = 2 + Math.random() * 2.5;
       const start = performance.now();
       function step(now) {
         const t = (now - start) / 1000 * speed;
-        const y = -t * window.innerHeight * 1.5;
-        h.style.transform = `translateY(${y}px) rotate(${t*50}deg)`;
+        const y = -t * window.innerHeight * 1.6;
+        h.style.transform = `translateY(${y}px) rotate(${t*40}deg)`;
         if (y < -window.innerHeight - 400) h.remove();
         else requestAnimationFrame(step);
       }
@@ -191,7 +208,7 @@ video.onended = () => {
 };
 
 function startFinalCountdown() {
-  let totalSeconds = 3600; // 1 час
+  let totalSeconds = 3600;
   let elapsed = 0;
 
   const interval = setInterval(() => {
@@ -203,7 +220,6 @@ function startFinalCountdown() {
     const s = (totalSeconds % 60).toString().padStart(2, '0');
     timerDisplay.innerText = `${h}:${m}:${s}`;
 
-    // Твой запрос: закрыть через 7 секунд
     if (elapsed === 7) {
       clearInterval(interval);
       window.close();
@@ -211,16 +227,13 @@ function startFinalCountdown() {
     }
   }, 1000);
 
-  // Финальный взрыв конфетти
-  for(let i=0; i<100; i++) {
+  // Финальный взрыв (ограничено для мобилок)
+  for(let i=0; i<40; i++) {
     const c = document.createElement('div');
     c.innerText = '🌸';
-    c.style.position = 'fixed';
-    c.style.left = Math.random() * 100 + 'vw';
-    c.style.top = Math.random() * 100 + 'vh';
-    c.style.fontSize = '50px';
-    c.style.zIndex = '300';
+    c.style.cssText = `position:fixed; left:${Math.random()*100}vw; top:${Math.random()*100}vh; font-size:40px; z-index:300; pointer-events:none;`;
     document.body.appendChild(c);
+    setTimeout(() => c.remove(), 2000);
   }
 }
 </script>
