@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>🎀 MEGA KAWAII CHAOS 🎀</title>
+<title>🎀 KAWAII MESSENGER 🎀</title>
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Varela+Round&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -16,90 +16,90 @@
     margin: 0; padding: 0; width: 100%; height: 100%;
     overflow: hidden; background: #ffdef2;
     font-family: 'Pacifico', cursive;
-    /* Убираем лишние задержки при клике на мобилках */
     touch-action: manipulation; 
   }
 
-  /* ОПТИМИЗИРОВАННЫЙ ГИПНО-ФОН */
+  /* ФОН */
   .chaos-bg {
     position: fixed; width: 150vmax; height: 150vmax; top: -25vmax; left: -25vmax;
     background: conic-gradient(from 0deg, #ff0080, #00ffff, #ffff00, #ff0080);
-    animation: rotateChaos 10s linear infinite;
-    z-index: -5; opacity: 0.4;
+    animation: rotateChaos 15s linear infinite; /* Чуть медленнее */
+    z-index: -5; opacity: 0.3; /* Мягче */
     will-change: transform;
   }
   @keyframes rotateChaos { to { transform: rotate(360deg); } }
 
+  /* ЛЕТАЮЩИЙ МУСОР - МЕНЬШЕ И РЕДЖЕ */
   .ambient-item {
     position: fixed; pointer-events: none; z-index: 1;
-    animation: floatAround 4s infinite linear;
+    animation: floatAround 5s infinite linear;
     will-change: transform;
   }
   @keyframes floatAround {
-    0% { transform: translate(0,0) rotate(0deg) scale(1); }
-    50% { transform: translate(50px, -50px) rotate(180deg) scale(1.3); }
-    100% { transform: translate(-20px, 20px) rotate(360deg) scale(1); }
+    0% { transform: translate(0,0) rotate(0deg); }
+    100% { transform: translate(40px, 40px) rotate(360deg); }
   }
 
+  /* РАДУГА */
   .rainbow-wrap {
-    position: fixed; top: 0; width: 100%; height: 25vh; z-index: 2;
-    filter: drop-shadow(0 0 15px #fff);
-    animation: rainbowShake 0.6s infinite ease-in-out;
+    position: fixed; top: 0; width: 100%; height: 20vh; z-index: 2;
+    filter: drop-shadow(0 0 10px #fff);
+    animation: rainbowPulse 1s infinite alternate ease-in-out;
   }
-  @keyframes rainbowShake { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.1); } }
+  @keyframes rainbowPulse { from { transform: scaleY(1); } to { transform: scaleY(1.05); } }
 
   .container {
     position: absolute; width: 100%; height: 100%;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
-    z-index: 100; padding: 20px; box-sizing: border-box;
+    z-index: 100; padding: 15px; box-sizing: border-box;
   }
 
+  /* ТЕКСТ ПОД ТЕЛЕФОН */
   .message {
-    font-size: clamp(24px, 7vw, 42px); /* Адаптивный размер шрифта */
+    font-size: 28px; /* Оптимально для телефона */
     color: white; text-align: center;
-    text-shadow: 3px 3px 0px var(--pink), -2px -2px 0px var(--cyan), 0 0 15px white;
-    animation: glitch 0.3s infinite;
-    margin-bottom: 30px;
-    line-height: 1.2;
-  }
-  @keyframes glitch {
-    0% { transform: skew(0deg); }
-    50% { transform: skew(2deg) translate(2px, 1px); }
-    100% { transform: skew(-1deg); }
+    text-shadow: 2px 2px 0px var(--pink), -1px -1px 0px var(--cyan), 0 0 10px white;
+    margin-bottom: 25px;
+    line-height: 1.1; /* Плотнее */
+    width: 90%;
   }
 
-  .jelly-anchor { perspective: 1000px; width: 80%; display: flex; justify-content: center; }
+  .jelly-anchor { perspective: 1000px; width: 75%; display: flex; justify-content: center; }
+  
+  /* КНОПКА КОМПАКТНЕЕ */
   .jelly-btn {
-    width: 100%; max-width: 300px;
-    padding: 25px 10px; font-size: 28px; cursor: pointer;
+    width: 100%; max-width: 260px;
+    padding: 18px 10px; font-size: 22px; cursor: pointer;
     background: linear-gradient(45deg, var(--pink), var(--yellow));
-    border: 6px solid white; border-radius: 40px;
-    color: white; box-shadow: 0 12px 0px #b000b0, 0 20px 30px rgba(255,0,255,0.4);
+    border: 5px solid white; border-radius: 30px;
+    color: white; box-shadow: 0 10px 0px #b000b0, 0 15px 25px rgba(255,0,255,0.3);
     font-family: 'Pacifico', cursive;
-    animation: bounce 0.8s infinite alternate ease-in-out;
+    animation: bounce 1s infinite alternate ease-in-out;
     will-change: transform;
   }
-  @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-15px); } }
+  @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-10px); } }
 
+  /* СЕРДЕЧКИ МЕНЬШЕ */
   .heart-block {
-    position: absolute; bottom: -350px; z-index: 150;
+    position: absolute; bottom: -250px; z-index: 150;
     pointer-events: none; will-change: transform;
   }
 
   video {
     display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    object-fit: cover; z-index: 10; border: 10px solid white;
+    object-fit: cover; z-index: 10; border: 8px solid white; box-sizing: border-box;
   }
 
+  /* ТАЙМЕР ПОД ТЕЛЕФОН */
   #timerDisplay {
     display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    font-size: clamp(40px, 15vw, 80px); 
+    font-size: 50px; /* Чтобы влезал целиком */
     color: white; z-index: 200;
-    background: rgba(255, 0, 255, 0.9); padding: 20px 40px; border-radius: 50px;
-    border: 6px solid white; box-shadow: 0 0 50px var(--cyan);
+    background: rgba(255, 0, 255, 0.9); padding: 15px 30px; border-radius: 40px;
+    border: 5px solid white; box-shadow: 0 0 40px var(--cyan);
     font-family: 'Varela Round', sans-serif;
     text-align: center;
-    width: 80%;
+    width: auto; max-width: 90%;
   }
 </style>
 </head>
@@ -130,30 +130,27 @@ const video = document.getElementById('bunnyVideo');
 const timerDisplay = document.getElementById('timerDisplay');
 const mainUI = document.getElementById('mainUI');
 
-// 1. Оптимизированный фоновый треш
-const icons = ['🍭', '💖', '✨', '🎀', '🌸', '🍩', '🌟', '🧁'];
+// 1. Оптимизированный фоновый треш (меньше элементов)
+const icons = ['🍭', '💖', '✨', '🎀', '🌸', '🍩'];
 function createAmbient() {
-  if (document.querySelectorAll('.ambient-item').length > 15) return; // Лимит элементов
+  if (document.querySelectorAll('.ambient-item').length > 8) return; // Лимит жестче
   const el = document.createElement('div');
   el.className = 'ambient-item';
   el.innerText = icons[Math.floor(Math.random()*icons.length)];
   el.style.left = Math.random() * 90 + 'vw';
   el.style.top = Math.random() * 90 + 'vh';
-  el.style.fontSize = (25 + Math.random()*35) + 'px';
+  el.style.fontSize = (18 + Math.random()*25) + 'px'; // Элементы меньше
   document.body.appendChild(el);
   setTimeout(() => el.remove(), 4000);
 }
-setInterval(createAmbient, 250);
+setInterval(createAmbient, 400); // Реже спавн
 
 // 2. Управление желе-кнопкой (акселерометр)
-if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-    // Для iOS нужно разрешение, но мы просто добавим обработчик для Android/старых iOS
-}
 window.addEventListener('deviceorientation', (e) => {
   const btn = document.querySelector('.jelly-btn');
   if(btn && e.beta) {
-    const x = Math.min(Math.max(e.gamma, -15), 15);
-    const y = Math.min(Math.max(e.beta - 45, -15), 15);
+    const x = Math.min(Math.max(e.gamma, -12), 12);
+    const y = Math.min(Math.max(e.beta - 45, -12), 12);
     btn.style.transform = `rotateX(${-y}deg) rotateY(${x}deg)`;
   }
 });
@@ -163,15 +160,11 @@ function goCrazy() {
   
   setTimeout(() => {
     video.style.display = 'block';
-    video.play().catch(e => {
-        // На случай блокировки автоплея
-        video.muted = false;
-        video.play();
-    });
+    video.play().catch(() => {});
   }, 1800);
 
-  // СТЕНА СЕРДЕЦ (Оптимизированный цикл)
-  const heartCount = 3500; // Немного уменьшено для скорости, но за счет размера перекрывает всё
+  // СТЕНА СЕРДЕЦ (В ПОЛОВИНУ МЕНЬШЕ И САМИ МЕНЬШЕ)
+  const heartCount = 1750; // Было 3500
   const spawnTime = 2000;
   const hSvg = '<svg viewBox="0 0 24 24" width="100%" height="100%"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
 
@@ -179,21 +172,22 @@ function goCrazy() {
     setTimeout(() => {
       const h = document.createElement('div');
       h.className = 'heart-block';
-      const size = 180 + Math.random() * 150;
+      // Диапазон размеров уменьшен (от 80 до 200px)
+      const size = 80 + Math.random() * 120;
       h.style.width = size + 'px';
       h.style.height = size + 'px';
       h.innerHTML = hSvg;
       h.querySelector('path').setAttribute('fill', `hsl(${Math.random()*360}, 100%, 75%)`);
-      h.style.left = (Math.random() * 120 - 20) + 'vw';
+      h.style.left = (Math.random() * 110 - 5) + 'vw'; // Компактнее спавн по ширине
       document.body.appendChild(h);
 
-      const speed = 2 + Math.random() * 2.5;
+      const speed = 2 + Math.random() * 2;
       const start = performance.now();
       function step(now) {
         const t = (now - start) / 1000 * speed;
         const y = -t * window.innerHeight * 1.6;
-        h.style.transform = `translateY(${y}px) rotate(${t*40}deg)`;
-        if (y < -window.innerHeight - 400) h.remove();
+        h.style.transform = `translateY(${y}px) rotate(${t*30}deg)`;
+        if (y < -window.innerHeight - 300) h.remove();
         else requestAnimationFrame(step);
       }
       requestAnimationFrame(step);
@@ -227,13 +221,13 @@ function startFinalCountdown() {
     }
   }, 1000);
 
-  // Финальный взрыв (ограничено для мобилок)
-  for(let i=0; i<40; i++) {
+  // Финальный взрыв (ограничено)
+  for(let i=0; i<25; i++) {
     const c = document.createElement('div');
     c.innerText = '🌸';
-    c.style.cssText = `position:fixed; left:${Math.random()*100}vw; top:${Math.random()*100}vh; font-size:40px; z-index:300; pointer-events:none;`;
+    c.style.cssText = `position:fixed; left:${Math.random()*100}vw; top:${Math.random()*100}vh; font-size:30px; z-index:300; pointer-events:none;`;
     document.body.appendChild(c);
-    setTimeout(() => c.remove(), 2000);
+    setTimeout(() => c.remove(), 1500);
   }
 }
 </script>
